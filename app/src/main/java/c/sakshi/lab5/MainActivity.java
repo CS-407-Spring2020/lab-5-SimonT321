@@ -11,10 +11,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button login;
 
     public void goToActivity2(String s){
         Intent intent = new Intent(this, Main2Activity.class);
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickFunction(View view) {
+    public void onClick(View view) {
         EditText myTextField = (EditText) findViewById(R.id.editText2);
         String str = myTextField.getText().toString();
         SharedPreferences sharedPreferences = getSharedPreferences("c.sakshi.lab5", Context.MODE_PRIVATE);
@@ -40,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(!sharedPreferences.getString(usernameKey, "").equals("")) {
             String username = sharedPreferences.getString(usernameKey, "");
-            Intent intent = new Intent(this, Main2Activity.class);
-            intent.putExtra("message", username);
-            startActivity(intent);
+            goToActivity2(username);
         } else {
             setContentView(R.layout.activity_main);
+            login = (Button) findViewById(R.id.button);
+            login.setOnClickListener(this);
         }
     }
 }
